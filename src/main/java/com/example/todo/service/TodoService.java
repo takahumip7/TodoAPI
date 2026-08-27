@@ -1,0 +1,36 @@
+package com.example.todo.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.todo.dto.TodoCreateRequest;
+import com.example.todo.entity.Todo;
+import com.example.todo.repository.TodoMapper;
+
+@Service
+public class TodoService {
+
+  private final TodoMapper todoMapper;
+
+  public TodoService(TodoMapper todoMapper) {
+    this.todoMapper = todoMapper;
+  }
+
+  // DTOを受け取る
+  public void register (TodoCreateRequest request) {
+    // Entityを作成
+    Todo todo = new Todo();
+    todo.setTitle(request.getTitle());
+    todo.setCompleted(false);
+    todoMapper.insert(todo);
+  }
+
+  public List<Todo> findTodoList() {
+    return todoMapper.findTodoList();
+  }
+
+  public void deleteTodo(Long id) {
+    todoMapper.deleteTodo(id);
+  }
+}
