@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.dto.TodoCreateRequest;
+import com.example.todo.dto.TodoUpdateRequest;
 import com.example.todo.entity.Todo;
 import com.example.todo.repository.TodoMapper;
 
@@ -18,7 +19,7 @@ public class TodoService {
   }
 
   // DTOを受け取る
-  public void register (TodoCreateRequest request) {
+  public void register(TodoCreateRequest request) {
     // Entityを作成
     Todo todo = new Todo();
     todo.setTitle(request.getTitle());
@@ -32,5 +33,13 @@ public class TodoService {
 
   public void deleteTodo(Long id) {
     todoMapper.deleteTodo(id);
+  }
+
+  public void updateTodo(Long id, TodoUpdateRequest updateRequest) {
+    Todo todo = new Todo();
+    todo.setId(id);
+    todo.setTitle(updateRequest.getTitle());
+    todo.setCompleted(updateRequest.isCompleted());
+    todoMapper.updateTodo(todo);
   }
 }

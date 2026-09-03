@@ -15,4 +15,8 @@
   <delete id="deleteTodo">
     DELETE FROM todos WHERE id = #{id}
   </delete>
+
+  <update id="updateTodo">
+    UPDATE todos SET title = #{title}, completed = #{completed} WHERE id = #{id}
+  </update>
 </mapper>
