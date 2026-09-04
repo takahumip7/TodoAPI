@@ -2,7 +2,6 @@ package com.example.todo.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,8 +49,14 @@ public class TodoController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Void> updateTodo(@PathVariable Long id, @RequestBody TodoUpdateRequest updateRequest) {
-    todoService.updateTodo(id, updateRequest);
 
-    return ResponseEntity.noContent().build();
+    try {
+      todoService.updateTodo(id, updateRequest);
+
+      return ResponseEntity.noContent().build();
+    } catch (IllegalArgumentException e) {
+      return  ResponseEntity.notFound().build();
+    }
+
   }
 }

@@ -37,9 +37,15 @@ public class TodoService {
 
   public void updateTodo(Long id, TodoUpdateRequest updateRequest) {
     Todo todo = new Todo();
+
     todo.setId(id);
     todo.setTitle(updateRequest.getTitle());
     todo.setCompleted(updateRequest.isCompleted());
-    todoMapper.updateTodo(todo);
+
+    int result = todoMapper.updateTodo(todo);
+
+    if (result == 0) {
+      throw new IllegalArgumentException("Todoが存在しません");
+    }
   }
 }
