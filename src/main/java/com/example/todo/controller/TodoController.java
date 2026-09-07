@@ -18,6 +18,8 @@ import com.example.todo.dto.TodoUpdateRequest;
 import com.example.todo.entity.Todo;
 import com.example.todo.service.TodoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
@@ -29,7 +31,7 @@ public class TodoController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> register(@RequestBody TodoCreateRequest request) {
+  public ResponseEntity<Void> register(@RequestBody @Valid TodoCreateRequest request) {
     todoService.register(request);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
@@ -49,14 +51,11 @@ public class TodoController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Void> updateTodo(@PathVariable Long id, @RequestBody TodoUpdateRequest updateRequest) {
-
     try {
       todoService.updateTodo(id, updateRequest);
-
       return ResponseEntity.noContent().build();
     } catch (IllegalArgumentException e) {
-      return  ResponseEntity.notFound().build();
+      return ResponseEntity.notFound().build();
     }
-
   }
 }
