@@ -51,11 +51,7 @@ public class TodoController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Void> updateTodo(@PathVariable Long id, @RequestBody TodoUpdateRequest updateRequest) {
-    try {
       todoService.updateTodo(id, updateRequest);
       return ResponseEntity.noContent().build();
-    } catch (IllegalArgumentException e) {
-      return ResponseEntity.notFound().build();
-    }
   }
 }
