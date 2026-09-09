@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.todo.dto.TodoCreateRequest;
 import com.example.todo.dto.TodoUpdateRequest;
 import com.example.todo.entity.Todo;
+import com.example.todo.exception.TodoNotFoundException;
 import com.example.todo.repository.TodoMapper;
 
 @Service
@@ -45,7 +46,7 @@ public class TodoService {
     int result = todoMapper.updateTodo(todo);
 
     if (result == 0) {
-      throw new IllegalArgumentException("Todoが存在しません");
+      throw new TodoNotFoundException("Todoが存在しません");
     }
   }
 }

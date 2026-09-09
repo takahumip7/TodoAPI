@@ -17,6 +17,6 @@
   </delete>
 
   <update id="updateTodo">
-    UPDATE todos SET title = #{title}, completed = #{completed} WHERE id = #{id}
+    UPDATE todos SET title = #{title}, completed = #{completed}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}
   </update>
 </mapper>
