@@ -12,11 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex,
+  @ExceptionHandler(TodoNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleTodoNotFoundException(TodoNotFoundException ex,
       HttpServletRequest request) {
-
-          System.out.println("★★★ GlobalExceptionHandlerが呼ばれました");
 
     ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(),
         request.getRequestURI());
