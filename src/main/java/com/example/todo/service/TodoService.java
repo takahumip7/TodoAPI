@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.dto.TodoCreateRequest;
+import com.example.todo.dto.TodoResponse;
 import com.example.todo.dto.TodoUpdateRequest;
 import com.example.todo.entity.Todo;
 import com.example.todo.exception.TodoNotFoundException;
@@ -28,8 +29,10 @@ public class TodoService {
     todoMapper.insert(todo);
   }
 
-  public List<Todo> findTodoList() {
-    return todoMapper.findTodoList();
+  public List<TodoResponse> findTodoList() {
+    List<Todo> todoList = todoMapper.findTodoList();
+
+    return todoList.stream().map(todo -> new TodoResponse(todo.getId(), todo.getTitle(), todo.isCompleted())).toList();
   }
 
   public void deleteTodo(Long id) {
