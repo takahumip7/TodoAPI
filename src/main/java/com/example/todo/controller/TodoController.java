@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.todo.dto.TodoCreateRequest;
+import com.example.todo.dto.TodoResponse;
 import com.example.todo.dto.TodoUpdateRequest;
-import com.example.todo.entity.Todo;
 import com.example.todo.service.TodoService;
 
 import jakarta.validation.Valid;
@@ -37,8 +37,8 @@ public class TodoController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Todo>> findTodoList() {
-    List<Todo> todoList = todoService.findTodoList();
+  public ResponseEntity<List<TodoResponse>> findTodoList() {
+    List<TodoResponse> todoList = todoService.findTodoList();
     return ResponseEntity.ok(todoList);
   }
 
@@ -51,7 +51,7 @@ public class TodoController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Void> updateTodo(@PathVariable Long id, @RequestBody TodoUpdateRequest updateRequest) {
-      todoService.updateTodo(id, updateRequest);
-      return ResponseEntity.noContent().build();
+    todoService.updateTodo(id, updateRequest);
+    return ResponseEntity.noContent().build();
   }
 }
