@@ -43,8 +43,13 @@ public class TodoService {
     Todo todo = new Todo();
 
     todo.setId(id);
-    todo.setTitle(updateRequest.getTitle());
-    todo.setCompleted(updateRequest.isCompleted());
+    if (updateRequest.getTitle() != null) {
+      todo.setTitle(updateRequest.getTitle());
+    }
+
+    if (updateRequest.getCompleted() != null) {
+      todo.setCompleted(updateRequest.getCompleted());
+    }
 
     int result = todoMapper.updateTodo(todo);
 
