@@ -50,7 +50,7 @@ public class TodoController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Void> updateTodo(@PathVariable Long id, @RequestBody TodoUpdateRequest updateRequest) {
+  public ResponseEntity<Void> updateTodo(@PathVariable Long id, @RequestBody @Valid TodoUpdateRequest updateRequest) {
     todoService.updateTodo(id, updateRequest);
     return ResponseEntity.noContent().build();
   }
