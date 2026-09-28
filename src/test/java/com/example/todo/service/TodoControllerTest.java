@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import com.example.todo.controller.TodoController;
 import com.example.todo.dto.TodoCreateRequest;
 import com.example.todo.dto.TodoResponse;
+import com.example.todo.dto.TodoUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
 public class TodoControllerTest {
@@ -67,6 +68,18 @@ public class TodoControllerTest {
     ResponseEntity<Void> response = todoController.deleteTodo(id);
     // 確認
     verify(todoService).deleteTodo(id);
+    assertEquals(204, response.getStatusCode().value());
+  }
+
+  @Test
+  void updateTodo_正常に更新されること() {
+    // 準備
+    Long id = 1L;
+    TodoUpdateRequest request = new TodoUpdateRequest();
+    // 実行
+    ResponseEntity<Void> response = todoController.updateTodo(id, request);
+    // 確認
+    verify(todoService).updateTodo(id, request);
     assertEquals(204, response.getStatusCode().value());
   }
 }
