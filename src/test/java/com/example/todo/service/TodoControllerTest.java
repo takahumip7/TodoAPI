@@ -58,4 +58,15 @@ public class TodoControllerTest {
     assertEquals("テスト", response.getBody().get(0).getTitle());
     assertFalse(response.getBody().get(0).isCompleted());
   }
+
+  @Test
+  void deleteTodo_正常に削除されること() {
+    // 準備
+    Long id = 1L;
+    // 実行
+    ResponseEntity<Void> response = todoController.deleteTodo(id);
+    // 確認
+    verify(todoService).deleteTodo(id);
+    assertEquals(204, response.getStatusCode().value());
+  }
 }
