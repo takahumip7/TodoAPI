@@ -1,7 +1,11 @@
 package com.example.todo.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.todo.controller.TodoController;
 import com.example.todo.dto.TodoCreateRequest;
+import com.example.todo.dto.TodoResponse;
 
 @ExtendWith(MockitoExtension.class)
 public class TodoControllerTest {
@@ -37,4 +42,20 @@ public class TodoControllerTest {
     assertEquals(201, response.getStatusCode().value());
   }
 
+  @Test
+  void findTodoList_一覧が取得されること() {
+    // 準備
+    TodoResponse todo = new TodoResponse(1L, "テスト", false);
+    List<TodoResponse> todoList = List.of(todo);
+    when(todoService.findTodoList()).thenReturn(todoList);
+    // 実行
+    ResponseEntity<List<TodoResponse>> response = todoController.findTodoList();
+    // 確認
+    verify(todoService).findTodoList();
+    assertEquals(200, response.getStatusCode().value());
+    assertEquals(1, response.getBody().size());
+    assertEquals(1L, response.getBody().get(0).getId());
+    assertEquals("テスト", response.getBody().get(0).getTitle());
+    assertFalse(response.getBody().get(0).isCompleted());
+  }
 }
