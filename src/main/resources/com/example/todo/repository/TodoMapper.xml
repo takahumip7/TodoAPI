@@ -10,6 +10,14 @@
   <select id="findTodoList" resultType="com.example.todo.entity.Todo">
     SELECT *
     FROM todos
+    <where>
+      <if test="title != null">
+        title LIKE CONCAT('%', #{title}, '%')
+      </if>
+      <if test="completed != null">
+        AND completed = #{completed}
+      </if>
+    </where>
   </select>
 
   <delete id="deleteTodo">

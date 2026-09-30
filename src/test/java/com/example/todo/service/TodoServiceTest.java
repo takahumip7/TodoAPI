@@ -64,7 +64,7 @@ public class TodoServiceTest {
 
     List<Todo> todoList = List.of(todo);
 
-    when(todoMapper.findTodoList()).thenReturn(todoList);
+    when(todoMapper.findTodoList(String title, Boolean completed)).thenReturn(todoList);
 
     // 実行
     List<TodoResponse> actual = todoService.findTodoList();

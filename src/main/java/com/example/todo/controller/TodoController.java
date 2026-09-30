@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.todo.dto.TodoCreateRequest;
@@ -37,8 +38,10 @@ public class TodoController {
   }
 
   @GetMapping
-  public ResponseEntity<List<TodoResponse>> findTodoList() {
-    List<TodoResponse> todoList = todoService.findTodoList();
+  public ResponseEntity<List<TodoResponse>> findTodoList(
+      @RequestParam(required = false) String title,
+      @RequestParam(required = false) Boolean completed) {
+    List<TodoResponse> todoList = todoService.findTodoList(title, completed);
     return ResponseEntity.ok(todoList);
   }
 

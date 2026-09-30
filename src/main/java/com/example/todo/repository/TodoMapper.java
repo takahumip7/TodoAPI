@@ -11,7 +11,7 @@ public interface TodoMapper {
 
   int insert(Todo todo);
 
-  List<Todo> findTodoList();
+  List<Todo> findTodoList(String title, Boolean completed);
 
   int deleteTodo(Long id);
 
