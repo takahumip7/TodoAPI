@@ -29,8 +29,8 @@ public class TodoService {
     todoMapper.insert(todo);
   }
 
-  public List<TodoResponse> findTodoList() {
-    List<Todo> todoList = todoMapper.findTodoList();
+  public List<TodoResponse> findTodoList(String title, Boolean completed) {
+    List<Todo> todoList = todoMapper.findTodoList(title, completed);
 
     return todoList.stream().map(todo -> new TodoResponse(todo.getId(), todo.getTitle(), todo.isCompleted())).toList();
   }

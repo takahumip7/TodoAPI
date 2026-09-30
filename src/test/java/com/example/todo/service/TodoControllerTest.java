@@ -48,11 +48,11 @@ public class TodoControllerTest {
     // 準備
     TodoResponse todo = new TodoResponse(1L, "テスト", false);
     List<TodoResponse> todoList = List.of(todo);
-    when(todoService.findTodoList()).thenReturn(todoList);
+    when(todoService.findTodoList(String title, Boolean completed)).thenReturn(todoList);
     // 実行
-    ResponseEntity<List<TodoResponse>> response = todoController.findTodoList();
+    ResponseEntity<List<TodoResponse>> response = todoController.findTodoList(String title, Boolean completed);
     // 確認
-    verify(todoService).findTodoList();
+    verify(todoService).findTodoList(String title, Boolean completed);
     assertEquals(200, response.getStatusCode().value());
     assertEquals(1, response.getBody().size());
     assertEquals(1L, response.getBody().get(0).getId());
